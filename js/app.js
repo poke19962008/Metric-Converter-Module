@@ -4,6 +4,11 @@ $(function () {
         foo(lhs_isKeyUp)
     };
     
+    document.getElementById("rhs_input").onkeyup = function () {
+        var lhs_isKeyUp = false;
+        foo(lhs_isKeyUp)
+    };
+    
     document.getElementById("lhs_unit").onchange = function() {
         var lhs_isKeyUp = false;    
         foo(lhs_isKeyUp);
