@@ -20,8 +20,8 @@ $ python -m CGIHTTPServer
 * Go to "http://localhost/Metric-Converter-Module/queryInp.html" on your browser.
 
 ### Sample Queries
-- **convert 123celsius to fahrenheit**
-- **convert 123 celsius to fahrenheit**
-- **convert 123.123 celsius to fahrenheit**
-- **convert 123.123celsius to fahrenheit**
-- **convert 123.123kelvin to fahrenheit**
+- convert 123celsius to fahrenheit
+- convert 123 celsius to fahrenheit
+- convert 123.123 celsius to fahrenheit
+- convert 123.123celsius to fahrenheit
+- convert 123.123kelvin to fahrenheit
