@@ -22,3 +22,6 @@ $ python -m CGIHTTPServer
 ### Sample Queries
 * **convert 123celsius to fahrenheit**
 * **convert 123 celsius to fahrenheit**
+* **convert 123.123 celsius to fahrenheit**
+* **convert 123.123celsius to fahrenheit**
+* **convert 123.123kelvin to fahrenheit**
