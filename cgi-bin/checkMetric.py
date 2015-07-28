@@ -18,7 +18,7 @@ os.chdir("cgi-bin")
 
 form = cgi.FieldStorage()
 
-query = keywordExtractor.extract("convert 123celsius to fahrenheit")
+query = keywordExtractor.extract(form['q'].value)
 numRegExp = "([0-9.]+)"
 
 Found = False
@@ -29,7 +29,6 @@ lhsValue = ""
 metric = ""
 
 print("Content-Type: text/html\n")
-# print(form['q'].value)
 
 with open("corpus.json") as f:
     for line in f.readlines():
@@ -56,8 +55,8 @@ with open("corpus.json") as f:
             break
 
 if Found:
-    response = {"isMetricQuery": "true", "lhsUnit": lhsUnit[0].upper()+lhsUnit[1:], "rhsUnit": rhsUnit[0].upper()+rhsUnit[1:], "metric": metric , "lhsValue": lhsValue}
+    response = {"isMetricQuery": True, "lhsUnit": lhsUnit[0].upper()+lhsUnit[1:], "rhsUnit": rhsUnit[0].upper()+rhsUnit[1:], "metric": metric , "lhsValue": lhsValue}
     print(json.dumps(response))
 else:
-    response = {"isMetricQuery": "false", "lhsUnit": "-", "rhsUnit": "-", "metric": "-", "lhsValue": "-"}
+    response = {"isMetricQuery": False, "lhsUnit": "-", "rhsUnit": "-", "metric": "-", "lhsValue": "-"}
     print(json.dumps(response))
