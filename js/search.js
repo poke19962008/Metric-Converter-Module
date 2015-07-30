@@ -3,15 +3,6 @@ $( function() {
     
 });
 
-
-/* 
-    Call metricDiv.html
-    sets the value of elements retrieved from checkMetric.py
-    
-    Sample Queries:
-    convert 123celsius to fahrenheit <type: 1>
-    convert 123 celsius to fahrenheit <type: 2>
-*/
 function metricQuery(){
     
         var res = getWords($("#search").val());
