@@ -9,15 +9,18 @@ function metricQuery(){
 
         if(res !== "NaN"){
 
-             $.get("http://localhost/metricCalc/metricDiv.html", function(data, status) {
-             $("#MetricDivGoesHere").append(data);  
-
-             $("#metric").val(res["type"]);
-             $("#lhs_input").val(res["value"]);
-             $("#lhs_unit").val(res["from"]);
-             $("#rhs_unit").val(res["to"]);
-
-            });
+            $.get("http://localhost/metricCalc/metricDiv.html", function(data, status) {
+              
+            $("#MetricDivGoesHere").append(data);
+                $( data ).ready( function () { 
+                    $("#metric").val(res["type"], res["value"]);
+                    $("#lhs_input").val(res["value"]);
+                    $("#lhs_unit").val(res["from"]);
+                    $("#rhs_unit").val(res["to"]);
+                    
+                    $("#lhs_input, #lhs_unit, #rhs_unit").trigger("change");
+                });
+            });          
 
         }else{
             alert("Not a metric query...");
@@ -115,7 +118,6 @@ function getWords(query){
             }
         }
         
-        console.log(finalReturn);
         return finalReturn;
         }
     else{
