@@ -1,5 +1,6 @@
-# Metric-Converter-Module
-Metric Conversion module for SRM Search Engine 
+# Metric Converter Module
+Metric Conversion module for SRM Search Engine.
+Converts the following queries with GUI.
 
 ### Sample Queries
 - Temperature
