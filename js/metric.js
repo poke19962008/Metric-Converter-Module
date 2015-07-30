@@ -8,6 +8,19 @@ $(function () {
         foo(lhs_isKeyUp);
     }
     
+//   $("#metric").change( function () {
+//       var val = $("#metric").val();
+//      
+//       if(val === "Speed"){
+//           $("#lhs_unit #rhs_unit").html(
+//                "<option value=\"MPH\">Celsius</option>"+
+//                "<option value=\"FPS\">Fahrenheit</option>"+
+//                "<option value=\"MS\">Kelvin</option>"
+//           );
+//       }
+//   
+//   })
+    
    $("#lhs_input").on ( 'keyup' ,function () {
         var lhs_isKeyUp = true;
         foo(lhs_isKeyUp);
@@ -30,6 +43,8 @@ $(function () {
     
 });
 
+
+
 function foo(lhs_isKeyUp){
     
      switch (document.getElementById("metric").value){
@@ -49,18 +64,36 @@ function temperature (lhs_isKeyUp){
     var rhs_inp = $("#rhs_input");
     var lhs_inp = $("#lhs_input");
     
-    if(lhs_unit === rhs_unit){if(lhs_isKeyUp) {rhs_inp.val(Number(lhs_inp.val()));}else{lhs_inp.val(Number(rhs_inp.val()));}}
+    if(lhs_unit === rhs_unit){if(lhs_isKeyUp) {rhs_inp.val(Number(lhs_inp.val()));}else{lhs_inp.val(Number(rhs_inp.val()));}}    
+    if(lhs_isKeyUp) {rhs_inp.val( tempCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( tempCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
     
-    if(lhs_unit === "Celsius" && rhs_unit === "Fahrenheit"){if(lhs_isKeyUp) {rhs_inp.val(Number(lhs_inp.val())*(9/5)+32);}else{lhs_inp.val(Number(rhs_inp.val())*(9/5)+32);}}
-    
-    if(lhs_unit === "Celsius" && rhs_unit === "Kelvin"){if(lhs_isKeyUp) {rhs_inp.val(Number(lhs_inp.val())+273.15);}else{lhs_inp.val(Number(rhs_inp.val())+273.15);}}
-    
-    if(lhs_unit === "Fahrenheit" && rhs_unit === "Celsius"){if(lhs_isKeyUp){rhs_inp.val(Number(lhs_inp.val())*(5/9)-17.7778);}else{lhs_inp.val(Number(rhs_inp.vL())*(5/9)-17.7778);}}
-    
-    if(lhs_unit === "Fahrenheit" && rhs_unit === "Kelvin"){if(lhs_isKeyUp){rhs_inp.val((Number(lhs_inp.val())+459.67)*(5/9));}else{lhs_inp.val((Number(rhs_inp.val())+459.67)*(5/9));}}
-    
-    if(lhs_unit === "Kelvin" && rhs_unit === "Celsius"){if(lhs_isKeyUp){rhs_inp.val(Number(lhs_inp.val())-273.15);}else{lhs_inp.val(Number(rhs_inp.val())-273.15);}}
-    
-     if(lhs_unit === "Kelvin" && rhs_unit === "Fahrenheit"){if(lhs_isKeyUp){rhs_inp.val((Number(lhs_inp.val())-32)/1.8+273.15);}else{lhs_inp.val((Number(rhs_inp.val())-32)/1.8+273.15);}}
-    
+}
+
+function tempCal (num, unit, unit_) {
+    var farenheit, celcius, kelvin;
+			farenheit = celcius = kelvin = 0;
+    num = Number(num);
+			switch(unit){
+				case 'Fahrenheit':{
+					celcius = ((num-32)*(5/9));
+					kelvin = (num + 459.67)*(5/9);
+					farenheit = num;
+				}
+					break;
+				case 'Celsius':{
+					farenheit =  (num*(9/5))+32;
+					kelvin = num + 273;
+					celcius = num;
+				}
+					break;
+				case 'Kelvin':
+				{
+					celcius = num - 273.15;
+					farenheit = (num - (9/5))-459.67;
+					kelvin = num;
+				}
+					break;
+			}
+            var data = {"Fahrenheit":farenheit,"Celsius": celcius,"Kelvin": kelvin};
+			return data[unit_];
 }
