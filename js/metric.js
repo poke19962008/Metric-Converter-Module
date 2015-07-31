@@ -6,19 +6,19 @@ $(function () {
         firstLoad = false;
         var lhs_isKeyUp = true;
         setOptionValue();
-        foo(lhs_isKeyUp);
+        calculate(lhs_isKeyUp);
     }
     
    $("#metric").change( function () {  setOptionValue();  });
     
    $("#lhs_input, #rhs_unit").on ( 'keyup, change' ,function () {
         var lhs_isKeyUp = true;
-        foo(lhs_isKeyUp);
+        calculate(lhs_isKeyUp);
     });
     
     $("#rhs_input, #lhs_unit").on ( 'keyup, change' ,function () {
         var lhs_isKeyUp = false;
-        foo(lhs_isKeyUp);
+        calculate(lhs_isKeyUp);
     });
         
 });
@@ -101,19 +101,7 @@ function setOptionValue(){
        $("#lhs_unit, #rhs_unit").html(block);
 }
 
-function foo(lhs_isKeyUp){
-    
-     switch (document.getElementById("metric").value){
-            case 'Temperature':
-                temperature(lhs_isKeyUp);   
-                break;
-            default:
-                console.log("Default statement");
-        
-        }
-}
-
-function temperature (lhs_isKeyUp){
+function calculate (lhs_isKeyUp){
     var lhs_unit = $("#lhs_unit").val();
     var rhs_unit = $("#rhs_unit").val();
     
@@ -121,7 +109,13 @@ function temperature (lhs_isKeyUp){
     var lhs_inp = $("#lhs_input");
     
     if(lhs_unit === rhs_unit){if(lhs_isKeyUp) {rhs_inp.val(Number(lhs_inp.val()));}else{lhs_inp.val(Number(rhs_inp.val()));}}    
-    if(lhs_isKeyUp) {rhs_inp.val( tempCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( tempCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
+    
+    switch($("#metric").val()){
+        case "Temperature":{    
+            if(lhs_isKeyUp) {rhs_inp.val( tempCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( tempCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
+            break;
+        }
+    }
     
 }
 
@@ -142,8 +136,7 @@ function tempCal (num, unit, unit_) {
 					celcius = num;
 				}
 					break;
-				case 'Kelvin':
-				{
+				case 'Kelvin':{
 					celcius = num - 273.15;
 					farenheit = (num - (9/5))-459.67;
 					kelvin = num;
