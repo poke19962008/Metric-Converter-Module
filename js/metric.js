@@ -11,12 +11,12 @@ $(function () {
     
    $("#metric").change( function () {  setOptionValue();  });
     
-   $("#lhs_input, #rhs_unit").on ( 'keyup, change' ,function () {
+   $("#lhs_input, #rhs_unit").on ( 'keyup change' ,function () {
         var lhs_isKeyUp = true;
         calculate(lhs_isKeyUp);
     });
     
-    $("#rhs_input, #lhs_unit").on ( 'keyup, change' ,function () {
+    $("#rhs_input, #lhs_unit").on ( 'keyup change' ,function () {
         var lhs_isKeyUp = false;
         calculate(lhs_isKeyUp);
     });
