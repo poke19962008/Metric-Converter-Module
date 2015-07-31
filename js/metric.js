@@ -36,26 +36,22 @@ function setOptionValue(){
             
            case "Speed":{
                block = 
-                    "<option value=\"Miles/hour\">Miles/hour</option>"+
-                    "<option value=\"Feet/sec\">Feet/sec</option>"+
-                    "<option value=\"Meters/sec\">Meters/sec</option>"+
-                    "<option value=\"Km/hour\">Km/hour</option>"+
-                    "<option value=\"Km/hour\">Km/hour</option>";
+                    "<option value=\"mph\">Miles/hour</option>"+
+                    "<option value=\"fs\">Feet/sec</option>"+
+                    "<option value=\"ms\">Meters/sec</option>"+
+                    "<option value=\"kmph\">Km/hour</option>"+
+                    "<option value=\"knot\">Knot</option>";
                break;
            }
                
            case "Mass":{
                block = 
-                    "<option value=\"Metric ton\">Metric ton</option>"+
-                    "<option value=\"Kilogram\">Kilogram</option>"+
-                    "<option value=\"Gram\">Gram</option>"+
-                    "<option value=\"Milligram\">Milligram</option>"+
-                    "<option value=\"Mcg\">Mcg</option>"+
-                    "<option value=\"Long ton\">Long ton</option>"+
-                    "<option value=\"Short ton\">Short ton</option>"+
-                    "<option value=\"Stone\">Stone</option>"+
-                    "<option value=\"Pound\">Pound</option>"+
-                    "<option value=\"Ounce\">Ounce</option>";
+                    "<option value=\"metric_ton\">Metric ton</option>"+
+                    "<option value=\"kilogram\">Kilogram</option>"+
+                    "<option value=\"gram\">Gram</option>"+
+                    "<option value=\"milligram\">Milligram</option>"+
+                    "<option value=\"pound\">Pound</option>"+
+                    "<option value=\"ounce\">Ounce</option>";
                
                break;
            }
@@ -115,6 +111,16 @@ function calculate (lhs_isKeyUp){
             if(lhs_isKeyUp) {rhs_inp.val( tempCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( tempCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
             break;
         }
+            
+        case "Speed":{    
+            if(lhs_isKeyUp) {rhs_inp.val( speedCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( speedCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
+            break;
+        }
+            
+        case "Mass":{    
+            if(lhs_isKeyUp) {rhs_inp.val( massCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( massCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
+            break;
+        }
     }
     
 }
@@ -146,3 +152,121 @@ function tempCal (num, unit, unit_) {
             var data = {"Fahrenheit":farenheit,"Celsius": celcius,"Kelvin": kelvin};
 			return data[unit_];
 }
+
+function speedCal(num, unit, unit_){
+     var mph, kmph, fs, knot, ms;
+     kmph = fs = knot = ms =0.0;
+     num = Number(num);
+    
+			switch(unit){
+				case 'mph':{
+					kmph = num * 1.609344;
+					fs = num * 1.46667;
+					knot = num * 0.868976;
+					ms = num * 0.44704;
+					mph = num;
+				}
+				break;
+				case 'kmph':{
+					mph = num * 0.621371;
+					fs = num * 0.911344;
+					ms = num * 0.277778;
+					knot = num * 0.539957;
+					kmph = num;
+				}
+				break;
+				case 'fs':{
+					mph  = num * 0.681818;
+					ms = num * 0.3048;
+					kmph = num * 1.09728;
+					knot = num * 0.592484;
+					fs = num;
+				}
+				break;
+				case 'knot':{
+					mph = num * 1.15078;
+					fs = num * 1.68781;
+					ms = num * 0.514444;
+					kmph = num * 1.852;
+					knot = num; 
+				}
+				break;
+				case 'ms':{
+					mph = num * 2.23694;
+					fs = num * 1.46667;
+					kmph = num * 3.6;
+					knot = num * 1.94384;
+					ms = num;
+				}
+				break;
+				default:
+					break;
+			}
+			var data = {"mph" : mph, "kmph": kmph, "fs": fs, "knot": knot, "ms":ms};
+            return data[unit_];
+		}
+
+function massCal(num, unit, unit_){
+			var metric_ton, kilogram, gram, milligram, pound, ounce;
+			metric_ton= kilogram= gram= milligram= pound= ounce= 0;
+            num = Number(num);
+    
+			switch(unit){
+				case 'metric_ton':{
+					metric_ton =num ;
+					kilogram = num * 1000;
+					gram = num * 1000000;
+					milligram = num * 1000000000;
+					pound = num * 2204.62;
+					ounce = num * 35274;
+				}
+				break;
+				case 'kilogram':{
+					metric_ton = num * 0.001;
+					kilogram = num;
+					gram = num * 1000;
+					milligram = num * 1000000;
+					pound = num * 2.20462;
+					ounce = num * 35.274;
+				}
+				break;
+			case 'milligram':{
+				metric_ton = num / 100000000;
+				kilogram = num /1000000 ;
+				milligram =num;
+				gram = num * 0.001;
+				pound = num * 2.2046 * 1000000;
+				ounce = num * 3.5274 * 100000;
+			}
+			break;
+			case 'gram':{
+				metric_ton = num / 1000000;
+				kilogram = num * 0.001;
+				milligram  =num * 1000;
+				pound  = num * 0.00220462;
+				ounce  = num * 0.035274;
+			}
+			break; 
+			case 'pound':{
+				metric_ton = num * 0.000453592;
+				kilogram = num * 0.453592;
+				milligram = num * 453592;
+				gram = num * 453.592;
+				pound  = num ;
+				ounce = num * 16;
+			}
+			break;
+			case 'ounce':{
+				metric_ton = num * (2.835 / 100000);
+				kilogram = num * 0.0283495;
+				milligram = num * 28349.5;
+				gram = num * 28.3495;
+				ounce = num * (3.5274/100000);
+			}
+			break;
+			default:
+				break;
+			}
+			var data = {'metric_ton': metric_ton, 'milligram': milligram, 'gram':gram, 'kilogram': kilogram, 'pound': pound, 'ounce':ounce};
+            return data[unit_];
+		}	

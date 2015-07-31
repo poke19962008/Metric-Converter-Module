@@ -14,6 +14,8 @@ function metricQuery(){
             $("#MetricDivGoesHere").append(data);
                 $( data ).ready( function () { 
                     $("#metric").val(res["type"], res["value"]);
+                    $("#metric").trigger("change");
+                    
                     $("#lhs_input").val(res["value"]);
                     $("#lhs_unit").val(res["from"]);
                     $("#rhs_unit").val(res["to"]);
@@ -27,7 +29,7 @@ function metricQuery(){
         }
 }
 
-var convert= ["convert","conv","meters","m","centimeter","picometer","millimeter","mm","cm","pm","nanometer","nm","yard","mile","inch","foot","ft","m2","cm2","meter-square","square-meter","square-centimeter","centimeter-square","cm-square","m-square","m-sq","cm-sq","sq-m","sq-cm","min","sec","ms","minutes","seconds","milliseconds","farenheit","kelvin","celcius","c","f","k"];
+var convert= ["convert","conv","meters","m","centimeter","picometer","millimeter","mm","cm","pm","nanometer","nm","yard","mile","inch","foot","ft","m2","cm2","meter-square","square-meter","square-centimeter","centimeter-square","cm-square","m-square","m-sq","cm-sq","sq-m","sq-cm","min","sec","ms","minutes","seconds","milliseconds","farenheit","kelvin","celcius","c","f","k","miles-per-hour", "mph", "km-per-hour", "kmph", "feet-per-sec", "fs", "knot", "knott", "mps", "meter-per-sec","kg","kilogram","kilo","kilos","ton","gram","gm","ounce","oz","milligram","mg","pound", "lbs", "lb"];
 
 var length= ["meters","m","centimeter","picometer","millimeter","mm","cm","pm","nanometer","nm","yard","mile","inch","foot","ft"];
 
@@ -35,14 +37,18 @@ var area = ["m2","cm2","meter-square","square-meter","square-centimeter","centim
 
 var time = ["min","sec","ms","minutes","seconds","milliseconds"];
 
-var mass = ["kg","kilogram","ton","gram","ounce","milligram","mg","pound"];
+var Mass = ["kg","kilogram","kilo","kilos","ton","gram","gm","ounce","oz","milligram","mg","pound", "lbs", "lb"];
+var massValue = {"metric_ton":["ton"], "kilogram":["kg","kilogram","kilo","kilos"], "milligram":["milligram","mg"], "gram":["gram","gm"], "pound":["pound", "lbs", "lb"], "ounce":["ounce", "oz"]}
 
 var Temperature = ["farenheit", "kelvin", "celcius", "c", "f", "k", "fahrenheit"];
 var tempValue = {"Fahrenheit": ["farenheit", "f", "fahrenheit"], "Celsius": ["celcius", "c"], "Kelvin": ["kelvin", "k"]};
 
-var getType = {4:"length",9:"area",16:"time",25:"mass",36:"Temperature"};
-var map = {"Temperature": tempValue}
-var modules = [length,area,time,mass,Temperature];
+var Speed = ["miles-per-hour", "mph","km-per-hour", "kmph", "feet-per-sec", "fs","knot", "knott","ms", "mps", "meter-per-sec"];
+var speedValue = {"mph": ["miles-per-hour", "mph"], "kmph": ["km-per-hour", "kmph"], "fs": ["feet-per-sec", "fs"], "knot": ["knot", "knott"], "ms": ["mps", "meter-per-sec"]};
+
+var getType = {4:"length",9:"area",16:"time",25:"Mass",36:"Temperature",49:"Speed"};
+var map = {"Temperature": tempValue,"Speed": speedValue, "Mass": massValue};
+var modules = [length,area,time,Mass,Temperature,Speed];
 
 
 function getWords(query){
@@ -110,14 +116,14 @@ function getWords(query){
         
         var foo = map[finalReturn["type"]]
         for (var key in foo){
-            if (foo[key].indexOf(finalReturn["from"]) == 1){
+            if (foo[key].indexOf(finalReturn["from"]) !== -1){
                 finalReturn["from"] = key;
             }
-            if (foo[key].indexOf(finalReturn["to"]) == 1){
+            if (foo[key].indexOf(finalReturn["to"]) !== -1){
                 finalReturn["to"] = key;
             }
         }
-        
+        console.log(finalReturn);
         return finalReturn;
         }
     else{
