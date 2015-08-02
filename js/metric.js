@@ -69,10 +69,9 @@ function setOptionValue(){
                
            case "FuelConsumption":{
                block = 
-                   "<option value=\"MPG (US)\">MPG (US)</option>"+
-                   "<option value=\"MPG (imp.)\">MPG (imp.)</option>"+
-                   "<option value=\"Km/liter\">Km/liter</option>"+
-                   "<option value=\"Liter/100km\">Liter/100km</option>";
+                   "<option value=\"MPG\">MPG (US)</option>"+
+                   "<option value=\"km_litre\">Km/litre</option>"+
+                   "<option value=\"litre_100\">litre/100km</option>";
                
                break;
            }
@@ -124,6 +123,11 @@ function calculate (lhs_isKeyUp){
             
         case "DigitalStorage":{    
             if(lhs_isKeyUp) {rhs_inp.val( digitalStorageCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( digitalStorageCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
+            break;
+        }
+            
+        case "FuelConsumption":{ 
+            if(lhs_isKeyUp) {rhs_inp.val( fuelConsumptionCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( fuelConsumptionCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
             break;
         }
     }
@@ -327,3 +331,34 @@ function digitalStorageCal(num, unit, unit_){
 			var data = {'byte': byte, 'kilobyte': kilobyte, 'megabyte': megabyte, 'gigabyte': gigabyte, 'terabyte': terabyte};
 			return data[unit_];
 		}
+
+function fuelConsumptionCal(num, unit, unit_){
+        var km_litre, MPG, litre_100;
+        km_litre = MPG = litre_100 = 0;
+        num = Number(num);
+        switch(unit){
+            case 'km_litre':{
+                km_litre = num;
+                MPG = num * 2.82481;
+                litre_100 = num * 100;
+                break;
+            }
+            case 'MPG':{
+                km_litre = num * 0.354006;
+                MPG  = num;
+                litre_100 = num * 282.481;
+                break;
+            }
+            case 'litre_100':{
+            km_litre = num * 100;
+            MPG = num * 282.481;
+            litre_100 = num;
+            break;
+            }
+            default : 
+                break;
+        }
+
+    var data =  {"km_litre":km_litre, "MPG":MPG, "litre_100":litre_100};
+    return data[unit_];
+}

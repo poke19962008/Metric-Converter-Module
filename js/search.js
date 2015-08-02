@@ -30,19 +30,20 @@ function metricQuery(){
 }
 
 var convert= ["convert","conv",
-              "meters","m","centimeter","picometer","millimeter","mm","cm","pm","nanometer","nm","yard","mile","inch","foot","ft",
-              "m2","cm2","meter-square","square-meter","square-centimeter","centimeter-square","cm-square","m-square","m-sq","cm-sq","sq-m","sq-cm",
-              "min","sec","ms","minutes","seconds","milliseconds",
+//              "meters","m","centimeter","picometer","millimeter","mm","cm","pm","nanometer","nm","yard","mile","inch","foot","ft",
+//              "m2","cm2","meter-square","square-meter","square-centimeter","centimeter-square","cm-square","m-square","m-sq","cm-sq","sq-m","sq-cm",
+//              "min","sec","ms","minutes","seconds","milliseconds",
               "farenheit","kelvin","celcius","c","f","k",
               "miles-per-hour", "mph", "km-per-hour", "kmph", "feet-per-sec", "fs", "knot", "knott", "mps", "meter-per-sec",
               "kg","kilogram","kilo","kilos","ton","gram","gm","ounce","oz","ounces","milligram","mg","pound", "lbs", "lb",
-              "byte", "bytes", "b", "kilobyte", "kilobytes", "kb", "megabyte", "megabytes", "mb", "gigabyte", "gigabytes", "gb", "terabyte", "terabytes", "tb"];
+              "byte", "bytes", "b", "kilobyte", "kilobytes", "kb", "megabyte", "megabytes", "mb", "gigabyte", "gigabytes", "gb", "terabyte", "terabytes", "tb",
+              "km/litre", "kmpl", "kilometerpermile", "kilometerspermile", "mpg", "mile/gallon", "gallonpermile", "gallonspermile", "litre/100"];
 
-var length= ["meters","m","centimeter","picometer","millimeter","mm","cm","pm","nanometer","nm","yard","mile","inch","foot","ft"];
-
-var area = ["m2","cm2","meter-square","square-meter","square-centimeter","centimeter-square","cm-square","m-square","m-sq","cm-sq","sq-m","sq-cm"];
-
-var time = ["min","sec","ms","minutes","seconds","milliseconds"];
+//var length= ["meters","m","centimeter","picometer","millimeter","mm","cm","pm","nanometer","nm","yard","mile","inch","foot","ft"];
+//
+//var area = ["m2","cm2","meter-square","square-meter","square-centimeter","centimeter-square","cm-square","m-square","m-sq","cm-sq","sq-m","sq-cm"];
+//
+//var time = ["min","sec","ms","minutes","seconds","milliseconds"];
 
 var Mass = ["kg","kilogram","kilo","kilos","ton","gram","gm","ounce","oz","milligram","mg","pound", "lbs", "lb", "ounces"];
 var massValue = {"metric_ton":["ton"], "kilogram":["kg","kilogram","kilo","kilos"], "milligram":["milligram","mg"], "gram":["gram","gm"], "pound":["pound", "lbs", "lb"], "ounce":["ounce", "oz", "ounces"]}
@@ -54,11 +55,18 @@ var Speed = ["miles-per-hour", "mph","km-per-hour", "kmph", "feet-per-sec", "fs"
 var speedValue = {"mph": ["miles-per-hour", "mph"], "kmph": ["km-per-hour", "kmph"], "fs": ["feet-per-sec", "fs"], "knot": ["knot", "knott"], "ms": ["mps", "meter-per-sec"]};
 
 var DigitalStorage = ["byte", "bytes", "b", "kilobyte", "kilobytes", "kb", "megabyte", "megabytes", "mb", "gigabyte", "gigabytes", "gb", "terabyte", "terabytes", "tb"]
-var digitalStorageValue = {"byte": ["byte", "bytes", "b"], "kilobyte": ["kilobyte", "kilobytes", "kb"], "megabyte": ["megabyte", "megabytes", "mb"], "gigabyte": ["gigabyte", "gigabytes", "gb"], "terabyte": ["terabyte", "terabytes", "tb"]}
+var digitalStorageValue = {"byte": ["byte", "bytes", "b"], "kilobyte": ["kilobyte", "kilobytes", "kb"], "megabyte": ["megabyte", "megabytes", "mb"], "gigabyte": ["gigabyte", "gigabytes", "gb"], "terabyte": ["terabyte", "terabytes", "tb"]};
 
-var getType = {4:"length", 9:"area", 16:"time", 25:"Mass", 36:"Temperature", 49:"Speed", 64:"DigitalStorage"};
-var map = {"Temperature": tempValue, "Speed": speedValue, "Mass": massValue, "DigitalStorage": digitalStorageValue};
-var modules = [length, area, time,Mass, Temperature, Speed, DigitalStorage];
+var FuelConsumption = ["km/litre", "kmpl", "kilometerpermile", "kilometerspermile", "mpg", "mile/gallon", "gallonpermile", "gallonspermile", "litre/100"];
+var fuelConsumptionValue = {"km_litre": ["km/litre", "kmpl", "kilometerpermile", "kilometerspermile"], "MPG": ["mpg", "mile/gallon", "gallonpermile"], "litre_100": ["litre/100"]};
+
+var getType = {4:"Mass", 9:"Temperature" , 16:"Speed", 25:"DigitalStorage", 36:"FuelConsumption"};
+var map = {"Temperature": tempValue, "Speed": speedValue, "Mass": massValue, "DigitalStorage": digitalStorageValue, "FuelConsumption": fuelConsumptionValue};
+var modules = [Mass, Temperature, Speed, DigitalStorage, FuelConsumption];
+
+/*var getType = {4: "length", 9: "area", 16: "time", 25:"Mass", 36: "Temperature", 49: "Speed", 64:"DigitalStorage", 81: "FuelConsumption"};
+var map = {"Temperature": tempValue, "Speed": speedValue, "Mass": massValue, "DigitalStorage": digitalStorageValue, "FuelConsumption": fuelConsumptionValue};
+var modules = [length, area, time,Mass, Temperature, Speed, DigitalStorage, FuelConsumption];*/
 
 
 function getWords(query){
