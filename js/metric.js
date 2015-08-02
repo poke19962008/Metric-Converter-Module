@@ -58,11 +58,11 @@ function setOptionValue(){
                
            case "DigitalStorage":{
                block = 
-                   "<option value=\"Byte\">Byte</option>"+
-                   "<option value=\"Kilobyte\">Kilobyte</option>"+
-                   "<option value=\"Megabyte\">Megabyte</option>"+
-                   "<option value=\"Gigabyte\">Gigabyte</option>"+
-                   "<option value=\"Terabyte\">Terabyte</option>";
+                   "<option value=\"byte\">Byte</option>"+
+                   "<option value=\"kilobyte\">Kilobyte</option>"+
+                   "<option value=\"megabyte\">Megabyte</option>"+
+                   "<option value=\"gigabyte\">Gigabyte</option>"+
+                   "<option value=\"terabyte\">Terabyte</option>";
                
                break;
            }
@@ -119,6 +119,11 @@ function calculate (lhs_isKeyUp){
             
         case "Mass":{    
             if(lhs_isKeyUp) {rhs_inp.val( massCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( massCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
+            break;
+        }
+            
+        case "DigitalStorage":{    
+            if(lhs_isKeyUp) {rhs_inp.val( digitalStorageCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( digitalStorageCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
             break;
         }
     }
@@ -269,4 +274,56 @@ function massCal(num, unit, unit_){
 			}
 			var data = {'metric_ton': metric_ton, 'milligram': milligram, 'gram':gram, 'kilogram': kilogram, 'pound': pound, 'ounce':ounce};
             return data[unit_];
-		}	
+		}
+
+function digitalStorageCal(num, unit, unit_){
+			var byte, kilobyte, megabyte, gigabyte, terabyte;
+			byte= kilobyte= megabyte= gigabyte= terabyte;
+            num = Number(num);
+			switch(unit){
+				case 'byte':{
+					byte = num ;
+					kilobyte = num * 0.001;
+					megabyte =num / 1000000;
+					gigabyte = num / 1000000000;
+					terabyte = num / 1000000000000;
+				}
+				break;
+				case 'kilobyte':{
+					byte = num * 1000;
+					kilobyte= num;
+					megabyte =num * 0.001;
+					gigabyte = num / 1000000;
+					terabyte = num / 1000000000;
+				}
+				break;
+				case 'megabyte':{
+					byte = num * 1000000;
+					kilobyte = num * 1000;
+					megabyte = num;
+					gigabyte = num * .001;
+					terabyte = num / 1000000;
+				}
+				break;
+				case 'gigabyte':{
+					byte = num * 1000000000;
+					kilobyte = num * 100000000;
+					megabyte =num * 1000;
+					gigabyte = num ;
+					terabyte = num / 1000 ;
+				}
+				break;
+				case 'terabyte':{
+					byte = num *  1000000000000;
+					kilobyte = num * 1000000000;
+					megabyte =num * 1000000;
+					gigabyte = num * 1000;
+					terabyte = num  ;
+				}
+				break;
+				default:
+					break;
+			}
+			var data = {'byte': byte, 'kilobyte': kilobyte, 'megabyte': megabyte, 'gigabyte': gigabyte, 'terabyte': terabyte};
+			return data[unit_];
+		}
