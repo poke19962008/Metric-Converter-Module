@@ -9,7 +9,7 @@ function metricQuery(){
 
         if(res !== "NaN"){
 
-            $.get("http://localhost/metricCalc/metricDiv.html", function(data, status) {
+            $.get("metricDiv.html", function(data, status) {
               
             $("#MetricDivGoesHere").append(data);
                 $( data ).ready( function () { 
