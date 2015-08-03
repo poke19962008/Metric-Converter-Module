@@ -27,3 +27,8 @@ Converts the following queries with GUI.
   - ``"gram":["gram","gm"]``
   - ``"pound":["pound", "lbs", "lb"]``
   - ``"ounce":["ounce", "oz", "ounces"]``
+- Length
+  - ``"kilometre": ["kilometers","km", "kilometer"]``
+  - ``"metre": ["meters","m", "meter"]``
+  - ``"mile": ["mile", "miles", "mi"]``
+  - ``"foot": ["foot","ft", "feet"], "yard": ["yard", "yd"], "inch": ["inch"]``
