@@ -428,6 +428,5 @@ function lengthCal(num,unit,unit_){
                     break;
 			}
 			var data = {'kilometer':kilometer, 'meter':meter, 'mile':mile, 'foot':foot, 'yard':yard, 'inch':inch};
-    console.log(data);
             return(data[unit_]);
 		}

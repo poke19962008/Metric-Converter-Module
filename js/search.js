@@ -40,7 +40,7 @@ var convert= ["convert","conv",
               "km/litre", "kmpl", "kilometerpermile", "kilometerspermile", "mpg", "mile/gallon", "gallonpermile", "gallonspermile", "litre/100"];
 
 var Length= ["kilometers","km", "kilometer", "meters","m", "meter","yard", "yd","mile", "miles", "mi","inch","foot","ft", "feet"];
-var lengthValue = {"kilometre": ["kilometers","km", "kilometer"], "metre": ["meters","m", "meter"], "mile": ["mile", "miles", "mi"], "foot": ["foot","ft", "feet"], "yard": ["yard", "yd"], "inch": ["inch"]};
+var lengthValue = {"kilometer": ["kilometers","km", "kilometer"], "meter": ["meters","m", "meter"], "mile": ["mile", "miles", "mi"], "foot": ["foot","ft", "feet"], "yard": ["yard", "yd"], "inch": ["inch"]};
 //var area = ["m2","cm2","meter-square","square-meter","square-centimeter","centimeter-square","cm-square","m-square","m-sq","cm-sq","sq-m","sq-cm"];
 //
 //var time = ["min","sec","ms","minutes","seconds","milliseconds"];
