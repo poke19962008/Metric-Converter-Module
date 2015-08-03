@@ -78,15 +78,12 @@ function setOptionValue(){
                
            case "Length":{
                block = 
-                   "<option value=\"Kilometer\">Kilometer</option>"+
-                   "<option value=\"Meter\">Meter</option>"+
-                   "<option value=\"Centimeter\">Centimeter</option>"+
-                   "<option value=\"Millimeter\">Millimeter</option>"+
-                   "<option value=\"Mile\">Mile</option>"+
-                   "<option value=\"Yard\">Yard</option>"+
-                   "<option value=\"Foot\">Foot</option>"+
-                   "<option value=\"Inch\">Inch</option>"+
-                   "<option value=\"Nautical mile\">Nautical mile</option>";
+                   "<option value=\"kilometer\">Kilometer</option>"+
+                   "<option value=\"meter\">Meter</option>"+               
+                   "<option value=\"mile\">Mile</option>"+
+                   "<option value=\"yard\">Yard</option>"+
+                   "<option value=\"foot\">Foot</option>"+
+                   "<option value=\"inch\">Inch</option>";
                
                break;
            }
@@ -128,6 +125,11 @@ function calculate (lhs_isKeyUp){
             
         case "FuelConsumption":{ 
             if(lhs_isKeyUp) {rhs_inp.val( fuelConsumptionCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( fuelConsumptionCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
+            break;
+        }
+            
+        case "Length":{ 
+            if(lhs_isKeyUp) {rhs_inp.val( lengthCal(lhs_inp.val(), lhs_unit, rhs_unit) );}else{lhs_inp.val( lengthCal(rhs_inp.val(), rhs_unit, lhs_unit) );}
             break;
         }
     }
@@ -362,3 +364,70 @@ function fuelConsumptionCal(num, unit, unit_){
     var data =  {"km_litre":km_litre, "MPG":MPG, "litre_100":litre_100};
     return data[unit_];
 }
+
+function lengthCal(num,unit,unit_){
+			var kilometer, meter, mile, foot, yard, inch;
+			kilometer = meter = mile = foot = yard = inch = 0;
+            num = Number(num);
+			switch(unit){
+				case 'kilometer':{
+					kilometer = num;
+					meter = num * 1000;
+					mile = num * 0.621371;
+					foot = num * 3280.84;
+					yard = num * 1093.61;
+					inch = num * 39370.1;
+					break;
+				}
+				case 'meter':{
+					kilometer = num * 0.001;
+					meter = num;
+					mile = num * 0.000621371;
+					foot = num * 3.28084;
+					yard = num * 1.09361;
+					inch = num * 39.3701;
+					break;
+				}
+				case 'mile':{
+					kilometer = num * 1.60934;
+					meter = num * 1609.34;
+					mile = num ;
+					foot = num * 5280;
+					yard = num * 1760;
+					inch = num * 63360;
+					break;
+				}
+				case 'foot':{
+					kilometer = num * 0.0003048;
+					meter = num * 0.3048;
+					mile = num * 0.000189394;
+					foot = num;
+					yard = num * 0.333333;
+					inch = num * 12;
+                    break;
+				}
+				case 'yard':{
+					kilometer = num * 0.0009144;
+					meter = num * 0.9144;
+					mile = num * 0.000568182;
+					foot = num * 3;
+					yard = num;
+					inch = num * 36;
+                    break;
+				}
+				case 'inch':{
+					kilometer = num * Math.pow(2.54, -5);
+					meter = num * 0.0254;
+					mile = num * Math.pow(1.5783, -5);
+					foot = num * 0.0833333;
+					yard = num * 0.0277778;
+					inch = num;
+                    break;
+				}
+				default:
+                    break;
+			}
+			var data = {'kilometer':kilometer, 'meter':meter, 'mile':mile, 'foot':foot, 'yard':yard, 'inch':inch};
+    console.log(data);
+            return(data[unit_]);
+		}
