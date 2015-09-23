@@ -1,5 +1,5 @@
 # Metric Converter Module
-Metric Conversion module for SRM Search Engine.
+Metric Conversion module for SRM Search Engine. Same as Google's Metric Converter module.
 Converts the following queries with GUI.
 
 ### Query Structure
